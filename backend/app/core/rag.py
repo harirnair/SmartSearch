@@ -33,7 +33,9 @@ def get_embeddings():
     Using Local HuggingFace embeddings to avoid API quotas and costs.
     """
     # You can switch this back to OpenAI/Gemini if you have a paid plan
-    return HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    hf_token = os.getenv("HF_TOKEN")
+    model_kwargs = {"token": hf_token} if hf_token else {}
+    return HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2", model_kwargs=model_kwargs)
 
 def get_llm(temperature=0):
     """
