@@ -16,7 +16,7 @@ const CompareView = () => {
 
     const fetchDocuments = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/documents');
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/documents`);
             setDocuments(response.data.documents || []);
         } catch (error) {
             console.error("Error fetching documents:", error);
@@ -37,7 +37,7 @@ const CompareView = () => {
         try {
             // Note: In a real app, you'd probably have a dropdown of available files.
             // Here we rely on manual input or previously uploaded files.
-            const response = await axios.post(`http://localhost:8000/api/compare?file1=${file1}&file2=${file2}`);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/compare?file1=${file1}&file2=${file2}`);
             setComparison(response.data);
         } catch (err) {
             setError("Failed to generate comparison. Ensure both files are uploaded and indexed.");

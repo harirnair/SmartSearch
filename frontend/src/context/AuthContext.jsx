@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
             formData.append('username', email);
             formData.append('password', password);
 
-            const response = await axios.post('http://localhost:8000/auth/token', formData);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/token`, formData);
             const { access_token } = response.data;
 
             setToken(access_token);
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (email, password) => {
         try {
-            const response = await axios.post('http://localhost:8000/auth/register', { email, password });
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, { email, password });
             const { access_token } = response.data;
 
             setToken(access_token);

@@ -21,7 +21,7 @@ const InsightsPanel = () => {
 
     const fetchDocuments = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/documents');
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/documents`);
             setDocuments(response.data.documents);
             if (response.data.documents.length > 0 && !selectedDoc) {
                 // Optionally auto-select the first one
@@ -36,7 +36,7 @@ const InsightsPanel = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get(`http://localhost:8000/api/insights?filename=${fname}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/insights?filename=${fname}`);
             setInsights(response.data);
         } catch (err) {
             setError("Failed to generate insights. Make sure a file is uploaded and the backend is running.");

@@ -28,7 +28,7 @@ const ChatWindow = () => {
 
     const fetchDocuments = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/documents');
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/documents`);
             setDocuments(response.data.documents);
         } catch (error) {
             console.error("Error fetching documents:", error);
@@ -52,7 +52,7 @@ const ChatWindow = () => {
 
         try {
             const fileQuery = selectedDocs.length > 0 ? `&files=${selectedDocs.join(',')}` : '';
-            const response = await axios.get(`http://localhost:8000/api/query?q=${encodeURIComponent(input)}${fileQuery}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/query?q=${encodeURIComponent(input)}${fileQuery}`);
 
             const results = response.data.results;
             const answer = response.data.answer;

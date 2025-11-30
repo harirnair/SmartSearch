@@ -16,7 +16,7 @@ const EvaluationPage = () => {
 
     const fetchDocuments = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/documents');
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/documents`);
             setDocuments(response.data.documents || []);
         } catch (error) {
             console.error("Error fetching documents:", error);
@@ -37,7 +37,7 @@ const EvaluationPage = () => {
 
         try {
             // 1. Generate Test Set
-            const genResponse = await axios.post('http://localhost:8000/api/evaluate/generate?num_samples=20', selectedDocs);
+            const genResponse = await axios.post(`${import.meta.env.VITE_API_URL}/api/evaluate/generate?num_samples=20`, selectedDocs);
             const testSet = genResponse.data.test_set;
 
             if (!testSet || testSet.length === 0) {
@@ -53,7 +53,7 @@ const EvaluationPage = () => {
             for (let i = 0; i < testSet.length; i++) {
                 const item = testSet[i];
                 try {
-                    const evalResponse = await axios.post('http://localhost:8000/api/evaluate/run_single', {
+                    const evalResponse = await axios.post(`${import.meta.env.VITE_API_URL}/api/evaluate/run_single`, {
                         question: item.question,
                         true_answer: item.true_answer,
                         files: selectedDocs
